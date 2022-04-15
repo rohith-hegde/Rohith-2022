@@ -1,6 +1,7 @@
 import Crypto, { sign } from "crypto";
 import Axios from "axios";
 import Readline from "readline";
+import { Console } from "console";
 
 const HASH_ALGO = "sha256";
 const SERVER_URL = "http://localhost:8080/";
@@ -62,11 +63,14 @@ function submitMessage(messageSigned) {
 		signedMessage: messageSigned,
 	};
 
+	console.log(`Sending signed message... \n${messageSigned}`);
+
 	Axios.post(`${SERVER_URL}sendSecureMessage`, submitInput).then((res) =>
 		console.log(`Message result: ${res}`)
 	);
 }
 
+//only runs once
 inquirer.question(
 	"Please enter a message to send to the server: ",
 	(messagePlain) => {
